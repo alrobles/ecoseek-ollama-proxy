@@ -288,7 +288,7 @@ def main():
     checker.start()
 
     # Start HTTP server
-    server = HTTPServer(("127.0.0.1", PROXY_PORT), ProxyHandler)
+    server = HTTPServer(("0.0.0.0", PROXY_PORT), ProxyHandler)
     print(f"\n[proxy] Listening on http://127.0.0.1:{PROXY_PORT}",
           file=sys.stderr, flush=True)
     print(f"[proxy] Endpoints:", file=sys.stderr, flush=True)
