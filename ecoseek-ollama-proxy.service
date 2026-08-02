@@ -1,0 +1,31 @@
+[Unit]
+Description=ecoSeek Ollama Proxy — HPC tunnel monitor & inference proxy
+After=network-online.target
+Wants=network-online.target
+Documentation=https://github.com/alrobles/ecoseek-ollama-proxy
+
+[Service]
+Type=simple
+WorkingDirectory=/home/reumanlab/dev/ecoseek-ollama-proxy
+ExecStart=/usr/bin/python3 /home/reumanlab/dev/ecoseek-ollama-proxy/server.py
+Restart=always
+RestartSec=10
+
+# Environment
+Environment=OLLAMA_TUNNEL_HOST=100.100.245.62
+Environment=OLLAMA_CHECK_INTERVAL=60
+Environment=OLLAMA_ALERT_AFTER=300
+Environment=OLLAMA_PROXY_PORT=8500
+
+# Security hardening
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/reumanlab/.cache
+ReadOnlyPaths=/home/reumanlab/dev/ecoseek-ollama-proxy
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictRealtime=yes
+
+[Install]
+WantedBy=default.target
